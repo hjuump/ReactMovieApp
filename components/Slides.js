@@ -3,6 +3,7 @@ import styled from 'styled-components/native';
 import {StyleSheet, useColorScheme} from 'react-native';
 import {makeImgPath} from '../utils';
 import {BlurView} from '@react-native-community/blur';
+import Poster from './Poster';
 
 const View = styled.View`
   flex: 1;
@@ -10,10 +11,7 @@ const View = styled.View`
   justify-content: center;
 `;
 const BgImg = styled.Image``;
-const Poster = styled.Image`
-  width: 100px;
-  height: 160px;
-`;
+
 const Title = styled.Text`
   font-size: 20px;
   font-weight: 700;
@@ -74,7 +72,7 @@ const Slides = ({
         reducedTransparencyFallbackColor="white"
       />
       <Wrapper>
-        <Poster source={{uri: makeImgPath(poster_path)}} />
+        <Poster path={poster_path} />
         <Column>
           <Title>{original_title}</Title>
           <Row>

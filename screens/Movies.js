@@ -19,9 +19,26 @@ const {height: SCREEN_HEIGHT} = Dimensions.get('window');
 
 const Movies = ({navigation: {navigate}}) => {
   const [loading, setLoading] = useState(true);
+  const [upcoming, setUpcoming] = useState([]);
+  const [trending, setTrending] = useState([]);
   const [nowPlaying, setNowPlaying] = useState([]);
   const API_KEY = 'dd0ead60b3700a1ece2ea4a6b3cc74ee';
-
+  const getTrending = async () => {
+    const {results} = await (
+      await fetch(
+        `https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}`,
+      )
+    ).json();
+    setTrending(results);
+  };
+  const getUpComing = async () => {
+    const {results} = await (
+      await fetch(
+        `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&language=en-US&page=1&region=KR`,
+      )
+    ).json();
+    setUpcoming(results);
+  };
   const getNowPlaying = async () => {
     const {results} = await (
       await fetch(
@@ -29,10 +46,13 @@ const Movies = ({navigation: {navigate}}) => {
       )
     ).json();
     setNowPlaying(results);
+  };
+  const getData = async () => {
+    await Promise.all([getTrending(), getUpComing(), getNowPlaying()]);
     setLoading(false);
   };
   useEffect(() => {
-    getNowPlaying();
+    getData();
   }, []);
 
   return loading ? (
