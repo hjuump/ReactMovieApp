@@ -12,7 +12,9 @@ function App() {
 
   return (
     <ThemeProvider theme={isDark ? lightTheme : darkTheme}>
-      <NavigationContainer></NavigationContainer>
+      <NavigationContainer>
+        <Root />
+      </NavigationContainer>
     </ThemeProvider>
   );
 }

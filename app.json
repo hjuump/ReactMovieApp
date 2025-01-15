@@ -1,4 +1,7 @@
 {
   "name": "MovieApp",
-  "displayName": "MovieApp"
+  "displayName": "MovieApp",
+  "react-native": {
+    "bridgeless": false
+  }
 }

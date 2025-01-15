@@ -2,11 +2,12 @@ import React, {useEffect, useState} from 'react';
 import styled from 'styled-components/native';
 import {ActivityIndicator, Dimensions} from 'react-native';
 import Swiper from 'react-native-web-swiper';
+import {makeImgPath} from '../utils';
 
 const ScrollView = styled.ScrollView`
   background-color: ${props => props.theme.mainBgColor};
 `;
-const Container = styled.View`
+const View = styled.View`
   flex: 1;
 `;
 const Loader = styled.View`
@@ -15,6 +16,10 @@ const Loader = styled.View`
   justify-content: center;
   background-color: ${props => props.theme.mainBgColor};
 `;
+const BgImg = styled.Image`
+  flex: 1;
+`;
+const API_KEY = 'dd0ead60b3700a1ece2ea4a6b3cc74ee';
 const {height: SCREEN_HEIGHT} = Dimensions.get('window');
 
 const Movies = ({navigation: {navigate}}) => {
@@ -32,6 +37,7 @@ const Movies = ({navigation: {navigate}}) => {
   useEffect(() => {
     getNowPlaying();
   }, []);
+
   return loading ? (
     <Loader>
       {' '}
@@ -44,11 +50,11 @@ const Movies = ({navigation: {navigate}}) => {
         timeout={2}
         controlsEnabled={false}
         containerStyle={{width: '100%', height: SCREEN_HEIGHT / 3}}>
-        <Container style={{backgroundColor: 'red'}}></Container>
-        <Container style={{backgroundColor: 'blue'}}></Container>
-        <Container style={{backgroundColor: 'orange'}}></Container>
-        <Container style={{backgroundColor: 'purple'}}></Container>
-        <Container style={{backgroundColor: 'yellow'}}></Container>
+        {nowPlaying.map(movie => (
+          <View key={movie.id}>
+            <BgImg source={{uri: makeImgPath(movie.backdrop_path)}} />
+          </View>
+        ))}
       </Swiper>
     </ScrollView>
   );
