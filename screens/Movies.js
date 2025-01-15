@@ -15,6 +15,8 @@ const ScrollView = styled.ScrollView`
 `;
 const View = styled.View`
   flex: 1;
+  align-items: center;
+  justify-content: center;
 `;
 const Loader = styled.View`
   flex: 1;
@@ -23,11 +25,48 @@ const Loader = styled.View`
   background-color: ${props => props.theme.mainBgColor};
 `;
 const BgImg = styled.Image``;
+const Poster = styled.Image`
+  width: 100px;
+  height: 160px;
+`;
 const Title = styled.Text`
-  font-size: 40px;
-  font-weight: 800;
+  font-size: 20px;
+  font-weight: 700;
   color: ${props => props.theme.textColor};
 `;
+const Overview = styled.Text`
+  margin-top: 10px;
+  font-size: 12px;
+  font-weight: 400;
+  color: ${props => props.theme.textColor};
+`;
+const Rate = styled.Text`
+  margin-top: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  color: ${props => props.theme.textColor};
+`;
+const TotalRate = styled(Rate)`
+  margin-bottom: 1px;
+  font-size: 12px;
+  font-weight: 500;
+  opacity: 0.5;
+`;
+const Column = styled.View`
+  width: 60%;
+  margin-left: 30px;
+`;
+const Row = styled.View`
+  flex-direction: row;
+  align-items: flex-end;
+`;
+const Wrapper = styled.View`
+  flex-direction: row;
+  width: 80%;
+  align-items: center;
+  justify-content: center;
+`;
+
 const API_KEY = 'dd0ead60b3700a1ece2ea4a6b3cc74ee';
 const {height: SCREEN_HEIGHT} = Dimensions.get('window');
 
@@ -58,6 +97,7 @@ const Movies = ({navigation: {navigate}}) => {
       <Swiper
         horizontal
         loop
+        autoplay
         autoplayTimeout={2}
         showsButtons={false}
         showsPagination={false}
@@ -71,10 +111,20 @@ const Movies = ({navigation: {navigate}}) => {
             <BlurView
               style={StyleSheet.absoluteFill}
               blurType={isDark ? 'dark' : 'light'}
-              blurAmount={10}
+              blurAmount={5}
               reducedTransparencyFallbackColor="white"
             />
-            <Title>{movie.original_title}</Title>
+            <Wrapper>
+              <Poster source={{uri: makeImgPath(movie.poster_path)}} />
+              <Column>
+                <Title>{movie.original_title}</Title>
+                <Row>
+                  <Rate>⭐️ {movie.vote_average}</Rate>
+                  <TotalRate> /10</TotalRate>
+                </Row>
+                <Overview>{movie.overview.slice(0, 100)}...</Overview>
+              </Column>
+            </Wrapper>
           </View>
         ))}
       </Swiper>
