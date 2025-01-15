@@ -20,19 +20,19 @@ const Tabs = () => {
   return (
     <Tab.Navigator
       sceneContainerStyle={{
-        backgroundColor: isDark ? BG_COLOR_LM : BG_COLOR_DM,
+        backgroundColor: isDark ? BG_COLOR_DM : BG_COLOR_LM,
       }}
       screenOptions={{
         tabBarStyle: {
-          backgroundColor: isDark ? BG_COLOR_LM : BG_COLOR_DM,
+          backgroundColor: isDark ? BG_COLOR_DM : BG_COLOR_LM,
         },
         tabBarActiveTintColor: POINT_COLOR,
-        tabBarInactiveTintColor: isDark ? SUB_TEXT_COLOR_DM : SUB_TEXT_COLOR_LM,
+        tabBarInactiveTintColor: isDark ? SUB_TEXT_COLOR_LM : SUB_TEXT_COLOR_DM,
         headerStyle: {
-          backgroundColor: isDark ? BG_COLOR_LM : BG_COLOR_DM,
+          backgroundColor: isDark ? BG_COLOR_DM : BG_COLOR_LM,
         },
         headerTitleStyle: {
-          color: isDark ? 'black' : 'white',
+          color: isDark ? 'white' : 'black',
         },
         tabBarLabelStyle: {
           fontSize: 12,

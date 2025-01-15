@@ -11,7 +11,7 @@ function App() {
   const isDark = useColorScheme() === 'dark';
 
   return (
-    <ThemeProvider theme={isDark ? lightTheme : darkTheme}>
+    <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
       <NavigationContainer>
         <Root />
       </NavigationContainer>
