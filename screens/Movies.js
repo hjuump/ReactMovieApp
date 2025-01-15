@@ -15,7 +15,6 @@ const Loader = styled.View`
   justify-content: center;
   background-color: ${props => props.theme.mainBgColor};
 `;
-const API_KEY = 'dd0ead60b3700a1ece2ea4a6b3cc74ee';
 const {height: SCREEN_HEIGHT} = Dimensions.get('window');
 
 const Movies = ({navigation: {navigate}}) => {
@@ -46,6 +45,7 @@ const Movies = ({navigation: {navigate}}) => {
         containerStyle={{width: '100%', height: SCREEN_HEIGHT / 3}}>
         <Container style={{backgroundColor: 'red'}}></Container>
         <Container style={{backgroundColor: 'blue'}}></Container>
+        <Container style={{backgroundColor: 'orange'}}></Container>
         <Container style={{backgroundColor: 'purple'}}></Container>
         <Container style={{backgroundColor: 'yellow'}}></Container>
       </Swiper>
