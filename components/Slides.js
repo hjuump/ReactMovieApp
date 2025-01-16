@@ -4,6 +4,7 @@ import {StyleSheet, useColorScheme} from 'react-native';
 import {makeImgPath} from '../utils';
 import {BlurView} from '@react-native-community/blur';
 import Poster from './Poster';
+import Votes from './Votes';
 
 const View = styled.View`
   flex: 1;
@@ -23,22 +24,7 @@ const Overview = styled.Text`
   font-weight: 400;
   color: ${props => props.theme.textColor};
 `;
-const Votes = styled.View`
-  flex-direction: row;
-  align-items: flex-end;
-`;
-const Rate = styled.Text`
-  margin-top: 8px;
-  font-size: 15px;
-  font-weight: 700;
-  color: ${props => props.theme.textColor};
-`;
-const TotalRate = styled(Rate)`
-  margin-bottom: 1px;
-  font-size: 12px;
-  font-weight: 500;
-  opacity: 0.5;
-`;
+
 const Column = styled.View`
   width: 60%;
   margin-left: 30px;
@@ -79,12 +65,7 @@ const Slides = ({
         <Column>
           <Title>{original_title}</Title>
           <Row>
-            <Votes>
-              <Rate>
-                {vote_average > 0 ? `⭐️ ${vote_average}` : `Coming Soon`}
-              </Rate>
-              <TotalRate> /10</TotalRate>
-            </Votes>
+            <Votes vote_average={vote_average} />
           </Row>
           <Overview>{overview.slice(0, 100)}...</Overview>
         </Column>

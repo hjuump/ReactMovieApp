@@ -4,20 +4,20 @@ import {ActivityIndicator, Dimensions, RefreshControl} from 'react-native';
 import Swiper from 'react-native-swiper';
 import Slides from '../components/Slides';
 import Poster from '../components/Poster';
+import Votes from '../components/Votes';
+import HMedia from '../components/HMedia';
+import VMedia from '../components/VMedia';
 
 const ScrollView = styled.ScrollView`
   background-color: ${props => props.theme.mainBgColor};
 `;
-const TrendingScrollView = styled.ScrollView``;
 const Loader = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;
   background-color: ${props => props.theme.mainBgColor};
 `;
-const ListContainer = styled.View`
-  margin-bottom: 40;
-`;
+
 const ListTitle = styled.Text`
   font-weight: 700;
   font-size: 22;
@@ -25,29 +25,11 @@ const ListTitle = styled.Text`
   margin-bottom: 20;
   color: ${props => props.theme.textColor};
 `;
-const Movie = styled.View`
-  margin-right: 20;
-  align-items: center;
-`;
+
 const Title = styled.Text`
   font-size: 14px;
   font-weight: 700;
   color: ${props => props.theme.textColor};
-`;
-const Votes = styled.View`
-  flex-direction: row;
-  align-items: flex-end;
-`;
-const Rate = styled.Text`
-  font-size: 12px;
-  font-weight: 600;
-  color: ${props => props.theme.textColor};
-`;
-const TotalRate = styled(Rate)`
-  margin-bottom: 1px;
-  font-size: 10px;
-  font-weight: 500;
-  opacity: 0.5;
 `;
 const HMovie = styled.View`
   padding: 0px 30px;
@@ -145,56 +127,8 @@ const Movies = ({navigation: {navigate}}) => {
           />
         ))}
       </Swiper>
-      <ListContainer>
-        <ListTitle>🔥 Trending Movies</ListTitle>
-        <TrendingScrollView
-          contentContainerStyle={{paddingLeft: 30}}
-          horizontal
-          showsHorizontalScrollIndicator={false}>
-          {trending.map(movie => (
-            <Movie key={movie.id}>
-              <Poster path={movie.poster_path} />
-              <Title>
-                {movie.original_title.slice(0, 11)}
-                {movie.original_title.length > 11 ? '...' : null}
-              </Title>
-              <Votes>
-                <Rate>
-                  {movie.vote_average > 0
-                    ? `⭐️ ${movie.vote_average}`
-                    : `Coming Soon`}
-                </Rate>
-                <TotalRate> /10</TotalRate>
-              </Votes>
-            </Movie>
-          ))}
-        </TrendingScrollView>
-      </ListContainer>
-      <ListTitle>📅 Upcoming Movies</ListTitle>
-      {upcoming.map(movie => (
-        <HMovie key={movie.id}>
-          <Poster path={movie.poster_path} />
-          <HColumn>
-            <Title>
-              {movie.original_title.slice(0, 30)}
-              {movie.original_title.length > 30 ? '...' : null}
-            </Title>
-            <Release>
-              📽️ {new Date(movie.release_date).toLocaleDateString('ko')}
-              {/* {new Date(movie.release_date).toLocaleDateString('ko', {
-                month: 'long',
-                day: 'numeric',
-                year: 'numeric',
-              })} */}
-            </Release>
-            <Overview>
-              {movie.overview !== '' && movie.overview.length < 80
-                ? movie.overview
-                : `${movie.overview.slice(0, 150)}...`}
-            </Overview>
-          </HColumn>
-        </HMovie>
-      ))}
+      <HMedia title="🔥 Trending Movies" movies={trending} />
+      <VMedia title="📅 Upcoming Movies" movies={upcoming} />
     </ScrollView>
   );
 };
