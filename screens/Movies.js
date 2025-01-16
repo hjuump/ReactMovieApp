@@ -76,6 +76,9 @@ const Movies = ({navigation: {navigate}}) => {
     </Loader>
   ) : (
     <TrendingScroll
+      onRefresh={onRefresh}
+      refreshing={refreshing}
+      nestedScrollEnabled={true}
       data={upcoming}
       keyExtractor={item => item.id.toString()}
       ListHeaderComponent={
