@@ -5,6 +5,7 @@ import Swiper from 'react-native-swiper';
 import Slides from '../components/Slides';
 import HMedia from '../components/HMedia';
 import VMedia from '../components/VMedia';
+import {API_KEY} from '@env';
 
 const TrendingScroll = styled.FlatList`
   background-color: ${props => props.theme.mainBgColor};
@@ -31,7 +32,7 @@ const Movies = ({navigation: {navigate}}) => {
   const [upcoming, setUpcoming] = useState([]);
   const [trending, setTrending] = useState([]);
   const [nowPlaying, setNowPlaying] = useState([]);
-  const API_KEY = 'dd0ead60b3700a1ece2ea4a6b3cc74ee';
+
   const getTrending = async () => {
     const {results} = await (
       await fetch(
