@@ -8,19 +8,21 @@ import Poster from '../components/Poster';
 const ScrollView = styled.ScrollView`
   background-color: ${props => props.theme.mainBgColor};
 `;
-const TrendingScrollView = styled.ScrollView`
-  margin-top: 20;
-`;
+const TrendingScrollView = styled.ScrollView``;
 const Loader = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;
   background-color: ${props => props.theme.mainBgColor};
 `;
+const ListContainer = styled.View`
+  margin-bottom: 40;
+`;
 const ListTitle = styled.Text`
-  font-weight: 600;
-  font-size: 18;
+  font-weight: 700;
+  font-size: 22;
   margin-left: 30;
+  margin-bottom: 20;
   color: ${props => props.theme.textColor};
 `;
 const Movie = styled.View`
@@ -47,6 +49,27 @@ const TotalRate = styled(Rate)`
   font-weight: 500;
   opacity: 0.5;
 `;
+const HMovie = styled.View`
+  padding: 0px 30px;
+  flex-direction: row;
+  width: 80%;
+  margin-bottom: 30;
+`;
+const HColumn = styled.View`
+  margin-left: 20;
+  width: 80%;
+`;
+const Overview = styled.Text`
+  color: ${props => props.theme.textColor};
+  opacity: 0.6;
+  font-size: 12;
+`;
+const Release = styled.Text`
+  color: ${props => props.theme.textColor};
+  margin: 7px 0px;
+  font-weight: 500;
+  opacity: 0.8;
+`;
 const {height: SCREEN_HEIGHT} = Dimensions.get('window');
 
 const Movies = ({navigation: {navigate}}) => {
@@ -66,7 +89,7 @@ const Movies = ({navigation: {navigate}}) => {
   const getUpComing = async () => {
     const {results} = await (
       await fetch(
-        `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&language=en-US&page=1&region=KR`,
+        `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&language=en-US&page=1`,
       )
     ).json();
     setUpcoming(results);
@@ -116,25 +139,56 @@ const Movies = ({navigation: {navigate}}) => {
           />
         ))}
       </Swiper>
-      <ListTitle>Trending Movies</ListTitle>
-      <TrendingScrollView
-        contentContainerStyle={{paddingLeft: 30}}
-        horizontal
-        showsHorizontalScrollIndicator={false}>
-        {trending.map(movie => (
-          <Movie key={movie.id}>
-            <Poster path={movie.poster_path} />
+      <ListContainer>
+        <ListTitle>🔥 Trending Movies</ListTitle>
+        <TrendingScrollView
+          contentContainerStyle={{paddingLeft: 30}}
+          horizontal
+          showsHorizontalScrollIndicator={false}>
+          {trending.map(movie => (
+            <Movie key={movie.id}>
+              <Poster path={movie.poster_path} />
+              <Title>
+                {movie.original_title.slice(0, 11)}
+                {movie.original_title.length > 11 ? '...' : null}
+              </Title>
+              <Votes>
+                <Rate>
+                  {movie.vote_average > 0
+                    ? `⭐️ ${movie.vote_average}`
+                    : `Coming Soon`}
+                </Rate>
+                <TotalRate> /10</TotalRate>
+              </Votes>
+            </Movie>
+          ))}
+        </TrendingScrollView>
+      </ListContainer>
+      <ListTitle>📅 Upcoming Movies</ListTitle>
+      {upcoming.map(movie => (
+        <HMovie key={movie.id}>
+          <Poster path={movie.poster_path} />
+          <HColumn>
             <Title>
-              {movie.original_title.slice(0, 11)}
-              {movie.original_title.length > 11 ? '...' : null}
+              {movie.original_title.slice(0, 30)}
+              {movie.original_title.length > 30 ? '...' : null}
             </Title>
-            <Votes>
-              <Rate>⭐️ {movie.vote_average}</Rate>
-              <TotalRate> /10</TotalRate>
-            </Votes>
-          </Movie>
-        ))}
-      </TrendingScrollView>
+            <Release>
+              📽️ {new Date(movie.release_date).toLocaleDateString('ko')}
+              {/* {new Date(movie.release_date).toLocaleDateString('ko', {
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric',
+              })} */}
+            </Release>
+            <Overview>
+              {movie.overview !== '' && movie.overview.length < 80
+                ? movie.overview
+                : `${movie.overview.slice(0, 150)}...`}
+            </Overview>
+          </HColumn>
+        </HMovie>
+      ))}
     </ScrollView>
   );
 };

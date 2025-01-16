@@ -80,7 +80,9 @@ const Slides = ({
           <Title>{original_title}</Title>
           <Row>
             <Votes>
-              <Rate>⭐️ {vote_average}</Rate>
+              <Rate>
+                {vote_average > 0 ? `⭐️ ${vote_average}` : `Coming Soon`}
+              </Rate>
               <TotalRate> /10</TotalRate>
             </Votes>
           </Row>
