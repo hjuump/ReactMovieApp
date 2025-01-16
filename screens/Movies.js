@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components/native';
-import {ActivityIndicator, Dimensions} from 'react-native';
+import {ActivityIndicator, Dimensions, RefreshControl} from 'react-native';
 import Swiper from 'react-native-swiper';
 import Slides from '../components/Slides';
 import Poster from '../components/Poster';
@@ -73,6 +73,7 @@ const Release = styled.Text`
 const {height: SCREEN_HEIGHT} = Dimensions.get('window');
 
 const Movies = ({navigation: {navigate}}) => {
+  const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(true);
   const [upcoming, setUpcoming] = useState([]);
   const [trending, setTrending] = useState([]);
@@ -106,6 +107,11 @@ const Movies = ({navigation: {navigate}}) => {
     await Promise.all([getTrending(), getUpComing(), getNowPlaying()]);
     setLoading(false);
   };
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await getData();
+    setRefreshing(false);
+  };
   useEffect(() => {
     getData();
   }, []);
@@ -115,7 +121,7 @@ const Movies = ({navigation: {navigate}}) => {
       <ActivityIndicator />
     </Loader>
   ) : (
-    <ScrollView>
+    <ScrollView refreshControl={<RefreshControl refreshing={refreshing} />}>
       <Swiper
         horizontal
         loop
