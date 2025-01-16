@@ -4,7 +4,7 @@ import styled from 'styled-components/native';
 const Container = styled.View`
   flex-direction: row;
   align-items: flex-end;
-  margin-top: 6;
+  margin-top: 6px;
 `;
 const Rate = styled.Text`
   font-size: 14px;

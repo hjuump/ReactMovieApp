@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components/native';
-import {ActivityIndicator, Dimensions, RefreshControl} from 'react-native';
+import {ActivityIndicator, Dimensions} from 'react-native';
 import Swiper from 'react-native-swiper';
 import Slides from '../components/Slides';
 import HMedia from '../components/HMedia';
 import VMedia from '../components/VMedia';
 
-const ScrollView = styled.ScrollView`
+const TrendingScroll = styled.FlatList`
   background-color: ${props => props.theme.mainBgColor};
 `;
 const Loader = styled.View`
@@ -17,9 +17,9 @@ const Loader = styled.View`
 `;
 const ListTitle = styled.Text`
   font-weight: 700;
-  font-size: 22;
-  margin-left: 30;
-  margin-bottom: 25;
+  font-size: 22px;
+  margin-left: 30px;
+  margin-bottom: 25px;
   color: ${props => props.theme.textColor};
 `;
 
@@ -74,35 +74,48 @@ const Movies = ({navigation: {navigate}}) => {
       <ActivityIndicator />
     </Loader>
   ) : (
-    <ScrollView refreshControl={<RefreshControl refreshing={refreshing} />}>
-      <Swiper
-        horizontal
-        loop
-        autoplay
-        autoplayTimeout={4}
-        showsButtons={false}
-        showsPagination={false}
-        containerStyle={{
-          marginBottom: 25,
-          width: '100%',
-          height: SCREEN_HEIGHT / 4,
-        }}>
-        {nowPlaying.map(movie => (
-          <Slides
-            key={movie.id}
-            backdrop_path={movie.backdrop_path}
-            poster_path={movie.poster_path}
-            original_title={movie.original_title}
-            vote_average={movie.vote_average}
-            overview={movie.overview}
-          />
-        ))}
-      </Swiper>
-      <ListTitle>🔥 Trending Movies</ListTitle>
-      <HMedia movies={trending} />
-      <ListTitle>📅 Upcoming Movies</ListTitle>
-      <VMedia movies={upcoming} />
-    </ScrollView>
+    <TrendingScroll
+      data={upcoming}
+      keyExtractor={item => item.id.toString()}
+      ListHeaderComponent={
+        <>
+          <Swiper
+            horizontal
+            loop
+            autoplay
+            autoplayTimeout={4}
+            showsButtons={false}
+            showsPagination={false}
+            containerStyle={{
+              marginBottom: 25,
+              width: '100%',
+              height: SCREEN_HEIGHT / 4,
+            }}>
+            {nowPlaying.map(movie => (
+              <Slides
+                key={movie.id}
+                backdrop_path={movie.backdrop_path}
+                poster_path={movie.poster_path}
+                original_title={movie.original_title}
+                vote_average={movie.vote_average}
+                overview={movie.overview}
+              />
+            ))}
+          </Swiper>
+          <ListTitle>🔥 Trending Movies</ListTitle>
+          <HMedia movies={trending} />
+          <ListTitle>📅 Upcoming Movies</ListTitle>
+        </>
+      }
+      renderItem={({item}) => (
+        <VMedia
+          poster_path={item.poster_path}
+          original_title={item.original_title}
+          release_date={item.release_date}
+          overview={item.overview}
+        />
+      )}
+    />
   );
 };
 

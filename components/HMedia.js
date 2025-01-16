@@ -5,7 +5,7 @@ import Votes from './Votes';
 import {FlatList, View} from 'react-native';
 
 const ListContainer = styled.View`
-  margin-bottom: 20;
+  margin-bottom: 20px;
 `;
 const Movie = styled.View`
   align-items: center;
