@@ -24,7 +24,6 @@ const Overview = styled.Text`
   font-weight: 400;
   color: ${props => props.theme.textColor};
 `;
-
 const Column = styled.View`
   width: 60%;
   margin-left: 30px;
@@ -38,7 +37,6 @@ const Wrapper = styled.View`
   align-items: center;
   justify-content: center;
 `;
-
 const Slides = ({
   backdrop_path,
   poster_path,

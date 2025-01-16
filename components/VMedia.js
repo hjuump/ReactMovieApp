@@ -1,15 +1,9 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import Poster from './Poster';
+import {FlatList} from 'react-native';
 const ListContainer = styled.View`
-  margin-bottom: 40;
-`;
-const ListTitle = styled.Text`
-  font-weight: 700;
-  font-size: 22;
-  margin-left: 30;
-  margin-bottom: 20;
-  color: ${props => props.theme.textColor};
+  margin-bottom: 30;
 `;
 const Title = styled.Text`
   font-size: 14px;
@@ -20,7 +14,6 @@ const HMovie = styled.View`
   padding: 0px 30px;
   flex-direction: row;
   width: 80%;
-  margin-bottom: 30;
 `;
 const HColumn = styled.View`
   margin-left: 20;
@@ -37,35 +30,38 @@ const Release = styled.Text`
   font-weight: 500;
   opacity: 0.8;
 `;
-const VMedia = ({title, movies}) => {
+const VMedia = ({movies}) => {
   return (
-    <ListContainer>
-      <ListTitle>{title}</ListTitle>
-      {movies.map(movie => (
-        <HMovie key={movie.id}>
-          <Poster path={movie.poster_path} />
-          <HColumn>
-            <Title>
-              {movie.original_title.slice(0, 30)}
-              {movie.original_title.length > 30 ? '...' : null}
-            </Title>
-            <Release>
-              📽️ {new Date(movie.release_date).toLocaleDateString('ko')}
-              {/* {new Date(movie.release_date).toLocaleDateString('ko', {
-              month: 'long',
-              day: 'numeric',
-              year: 'numeric',
-            })} */}
-            </Release>
-            <Overview>
-              {movie.overview !== '' && movie.overview.length < 80
-                ? movie.overview
-                : `${movie.overview.slice(0, 150)}...`}
-            </Overview>
-          </HColumn>
-        </HMovie>
-      ))}
-    </ListContainer>
+    <FlatList
+      data={movies}
+      keyExtractor={item => item.id + ''}
+      renderItem={({item}) => (
+        <ListContainer>
+          <HMovie key={item.id}>
+            <Poster path={item.poster_path} />
+            <HColumn>
+              <Title>
+                {item.original_title.slice(0, 30)}
+                {item.original_title.length > 30 ? '...' : null}
+              </Title>
+              <Release>
+                📽️ {new Date(item.release_date).toLocaleDateString('ko')}
+                {/* {new Date(item.release_date).toLocaleDateString('ko', {
+            month: 'long',
+            day: 'numeric',
+            year: 'numeric',
+          })} */}
+              </Release>
+              <Overview>
+                {item.overview !== '' && item.overview.length < 80
+                  ? item.overview
+                  : `${item.overview.slice(0, 150)}...`}
+              </Overview>
+            </HColumn>
+          </HMovie>
+        </ListContainer>
+      )}
+    />
   );
 };
 export default VMedia;

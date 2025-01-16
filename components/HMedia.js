@@ -2,20 +2,12 @@ import React from 'react';
 import styled from 'styled-components/native';
 import Poster from './Poster';
 import Votes from './Votes';
+import {FlatList, View} from 'react-native';
 
-const TrendingScrollView = styled.ScrollView``;
 const ListContainer = styled.View`
-  margin-bottom: 40;
-`;
-const ListTitle = styled.Text`
-  font-weight: 700;
-  font-size: 22;
-  margin-left: 30;
   margin-bottom: 20;
-  color: ${props => props.theme.textColor};
 `;
 const Movie = styled.View`
-  margin-right: 20;
   align-items: center;
 `;
 const Title = styled.Text`
@@ -23,26 +15,28 @@ const Title = styled.Text`
   font-weight: 700;
   color: ${props => props.theme.textColor};
 `;
-
-const HMedia = ({title, movies}) => {
+const HMedia = ({movies}) => {
+  const renderItem = ({item}) => (
+    <Movie key={item.id}>
+      <Poster path={item.poster_path} />
+      <Title>
+        {item.original_title.slice(0, 11)}
+        {item.original_title.length > 11 ? '...' : null}
+      </Title>
+      <Votes vote_average={item.vote_average} />
+    </Movie>
+  );
   return (
     <ListContainer>
-      <ListTitle>{title}</ListTitle>
-      <TrendingScrollView
-        contentContainerStyle={{paddingLeft: 30}}
+      <FlatList
+        data={movies}
+        ItemSeparatorComponent={() => <View style={{width: 20}} />}
+        keyExtractor={item => item.id.toString()}
+        renderItem={renderItem}
         horizontal
-        showsHorizontalScrollIndicator={false}>
-        {movies.map(movie => (
-          <Movie key={movie.id}>
-            <Poster path={movie.poster_path} />
-            <Title>
-              {movie.original_title.slice(0, 11)}
-              {movie.original_title.length > 11 ? '...' : null}
-            </Title>
-            <Votes vote_average={movie.vote_average} />
-          </Movie>
-        ))}
-      </TrendingScrollView>
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{paddingHorizontal: 30}}
+      />
     </ListContainer>
   );
 };

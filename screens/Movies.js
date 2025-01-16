@@ -3,8 +3,6 @@ import styled from 'styled-components/native';
 import {ActivityIndicator, Dimensions, RefreshControl} from 'react-native';
 import Swiper from 'react-native-swiper';
 import Slides from '../components/Slides';
-import Poster from '../components/Poster';
-import Votes from '../components/Votes';
 import HMedia from '../components/HMedia';
 import VMedia from '../components/VMedia';
 
@@ -17,41 +15,14 @@ const Loader = styled.View`
   justify-content: center;
   background-color: ${props => props.theme.mainBgColor};
 `;
-
 const ListTitle = styled.Text`
   font-weight: 700;
   font-size: 22;
   margin-left: 30;
-  margin-bottom: 20;
+  margin-bottom: 25;
   color: ${props => props.theme.textColor};
 `;
 
-const Title = styled.Text`
-  font-size: 14px;
-  font-weight: 700;
-  color: ${props => props.theme.textColor};
-`;
-const HMovie = styled.View`
-  padding: 0px 30px;
-  flex-direction: row;
-  width: 80%;
-  margin-bottom: 30;
-`;
-const HColumn = styled.View`
-  margin-left: 20;
-  width: 80%;
-`;
-const Overview = styled.Text`
-  color: ${props => props.theme.textColor};
-  opacity: 0.6;
-  font-size: 12;
-`;
-const Release = styled.Text`
-  color: ${props => props.theme.textColor};
-  margin: 7px 0px;
-  font-weight: 500;
-  opacity: 0.8;
-`;
 const {height: SCREEN_HEIGHT} = Dimensions.get('window');
 
 const Movies = ({navigation: {navigate}}) => {
@@ -112,7 +83,7 @@ const Movies = ({navigation: {navigate}}) => {
         showsButtons={false}
         showsPagination={false}
         containerStyle={{
-          marginBottom: 30,
+          marginBottom: 25,
           width: '100%',
           height: SCREEN_HEIGHT / 4,
         }}>
@@ -127,8 +98,10 @@ const Movies = ({navigation: {navigate}}) => {
           />
         ))}
       </Swiper>
-      <HMedia title="🔥 Trending Movies" movies={trending} />
-      <VMedia title="📅 Upcoming Movies" movies={upcoming} />
+      <ListTitle>🔥 Trending Movies</ListTitle>
+      <HMedia movies={trending} />
+      <ListTitle>📅 Upcoming Movies</ListTitle>
+      <VMedia movies={upcoming} />
     </ScrollView>
   );
 };
