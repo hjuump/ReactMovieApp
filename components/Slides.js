@@ -23,8 +23,12 @@ const Overview = styled.Text`
   font-weight: 400;
   color: ${props => props.theme.textColor};
 `;
+const Votes = styled.View`
+  flex-direction: row;
+  align-items: flex-end;
+`;
 const Rate = styled.Text`
-  margin-top: 10px;
+  margin-top: 8px;
   font-size: 15px;
   font-weight: 700;
   color: ${props => props.theme.textColor};
@@ -41,7 +45,6 @@ const Column = styled.View`
 `;
 const Row = styled.View`
   flex-direction: row;
-  align-items: flex-end;
 `;
 const Wrapper = styled.View`
   flex-direction: row;
@@ -76,8 +79,10 @@ const Slides = ({
         <Column>
           <Title>{original_title}</Title>
           <Row>
-            <Rate>⭐️ {vote_average}</Rate>
-            <TotalRate> /10</TotalRate>
+            <Votes>
+              <Rate>⭐️ {vote_average}</Rate>
+              <TotalRate> /10</TotalRate>
+            </Votes>
           </Row>
           <Overview>{overview.slice(0, 100)}...</Overview>
         </Column>

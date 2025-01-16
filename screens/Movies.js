@@ -3,18 +3,50 @@ import styled from 'styled-components/native';
 import {ActivityIndicator, Dimensions} from 'react-native';
 import Swiper from 'react-native-swiper';
 import Slides from '../components/Slides';
+import Poster from '../components/Poster';
 
 const ScrollView = styled.ScrollView`
   background-color: ${props => props.theme.mainBgColor};
 `;
-
+const TrendingScrollView = styled.ScrollView`
+  margin-top: 20;
+`;
 const Loader = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;
   background-color: ${props => props.theme.mainBgColor};
 `;
-
+const ListTitle = styled.Text`
+  font-weight: 600;
+  font-size: 18;
+  margin-left: 30;
+  color: ${props => props.theme.textColor};
+`;
+const Movie = styled.View`
+  margin-right: 20;
+  align-items: center;
+`;
+const Title = styled.Text`
+  font-size: 14px;
+  font-weight: 700;
+  color: ${props => props.theme.textColor};
+`;
+const Votes = styled.View`
+  flex-direction: row;
+  align-items: flex-end;
+`;
+const Rate = styled.Text`
+  font-size: 12px;
+  font-weight: 600;
+  color: ${props => props.theme.textColor};
+`;
+const TotalRate = styled(Rate)`
+  margin-bottom: 1px;
+  font-size: 10px;
+  font-weight: 500;
+  opacity: 0.5;
+`;
 const {height: SCREEN_HEIGHT} = Dimensions.get('window');
 
 const Movies = ({navigation: {navigate}}) => {
@@ -65,10 +97,14 @@ const Movies = ({navigation: {navigate}}) => {
         horizontal
         loop
         autoplay
-        autoplayTimeout={2}
+        autoplayTimeout={4}
         showsButtons={false}
         showsPagination={false}
-        containerStyle={{width: '100%', height: SCREEN_HEIGHT / 4}}>
+        containerStyle={{
+          marginBottom: 30,
+          width: '100%',
+          height: SCREEN_HEIGHT / 4,
+        }}>
         {nowPlaying.map(movie => (
           <Slides
             key={movie.id}
@@ -80,6 +116,25 @@ const Movies = ({navigation: {navigate}}) => {
           />
         ))}
       </Swiper>
+      <ListTitle>Trending Movies</ListTitle>
+      <TrendingScrollView
+        contentContainerStyle={{paddingLeft: 30}}
+        horizontal
+        showsHorizontalScrollIndicator={false}>
+        {trending.map(movie => (
+          <Movie key={movie.id}>
+            <Poster path={movie.poster_path} />
+            <Title>
+              {movie.original_title.slice(0, 11)}
+              {movie.original_title.length > 11 ? '...' : null}
+            </Title>
+            <Votes>
+              <Rate>⭐️ {movie.vote_average}</Rate>
+              <TotalRate> /10</TotalRate>
+            </Votes>
+          </Movie>
+        ))}
+      </TrendingScrollView>
     </ScrollView>
   );
 };
