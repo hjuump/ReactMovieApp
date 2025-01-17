@@ -16,10 +16,11 @@ const BgImg = styled.Image``;
 const Title = styled.Text`
   font-size: 20px;
   font-weight: 700;
+  margin-bottom: 7px;
   color: ${props => props.theme.textColor};
 `;
 const Overview = styled.Text`
-  margin-top: 10px;
+  margin-top: 7px;
   font-size: 12px;
   font-weight: 400;
   color: ${props => props.theme.textColor};

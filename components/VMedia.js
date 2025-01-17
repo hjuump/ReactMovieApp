@@ -1,9 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import Poster from './Poster';
-const ListContainer = styled.View`
-  margin-bottom: 30px;
-`;
+const ListContainer = styled.View``;
 const Title = styled.Text`
   font-size: 14px;
   font-weight: 700;

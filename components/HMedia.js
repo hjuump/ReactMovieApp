@@ -2,42 +2,26 @@ import React from 'react';
 import styled from 'styled-components/native';
 import Poster from './Poster';
 import Votes from './Votes';
-import {FlatList, View} from 'react-native';
-
-const ListContainer = styled.View`
-  margin-bottom: 20px;
-`;
 const Movie = styled.View`
   align-items: center;
 `;
 const Title = styled.Text`
   font-size: 14px;
   font-weight: 700;
+  margin-top: 7px;
+  margin-bottom: 5px;
   color: ${props => props.theme.textColor};
 `;
-const HMedia = ({movies}) => {
-  const renderItem = ({item}) => (
-    <Movie key={item.id}>
-      <Poster path={item.poster_path} />
-      <Title>
-        {item.original_title.slice(0, 11)}
-        {item.original_title.length > 11 ? '...' : null}
-      </Title>
-      <Votes vote_average={item.vote_average} />
-    </Movie>
-  );
+const HMedia = ({id, poster_path, original_title, vote_average}) => {
   return (
-    <ListContainer>
-      <FlatList
-        data={movies}
-        ItemSeparatorComponent={() => <View style={{width: 20}} />}
-        keyExtractor={item => item.id.toString()}
-        renderItem={renderItem}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{paddingHorizontal: 30}}
-      />
-    </ListContainer>
+    <Movie key={id}>
+      <Poster path={poster_path} />
+      <Title>
+        {original_title.slice(0, 11)}
+        {original_title.length > 11 ? '...' : null}
+      </Title>
+      <Votes vote_average={vote_average} />
+    </Movie>
   );
 };
 export default HMedia;

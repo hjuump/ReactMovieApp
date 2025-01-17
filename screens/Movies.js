@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components/native';
-import {ActivityIndicator, Dimensions} from 'react-native';
+import {ActivityIndicator, Dimensions, View} from 'react-native';
 import Swiper from 'react-native-swiper';
 import Slides from '../components/Slides';
 import HMedia from '../components/HMedia';
@@ -21,9 +21,15 @@ const ListTitle = styled.Text`
   font-size: 22px;
   margin-left: 30px;
   margin-bottom: 25px;
+  margin-top: 25px;
   color: ${props => props.theme.textColor};
 `;
-
+const VSeparator = styled.View`
+  height: 20px;
+`;
+const HSeparator = styled.View`
+  width: 20px;
+`;
 const {height: SCREEN_HEIGHT} = Dimensions.get('window');
 
 const Movies = ({navigation: {navigate}}) => {
@@ -69,7 +75,23 @@ const Movies = ({navigation: {navigate}}) => {
   useEffect(() => {
     getData();
   }, []);
-
+  const movieKeyExtractor = item => item.id.toString();
+  const renderHMedia = ({item}) => (
+    <HMedia
+      id={item.id}
+      poster_path={item.poster_path}
+      original_title={item.original_title}
+      vote_average={item.vote_average}
+    />
+  );
+  const renderVMedia = ({item}) => (
+    <VMedia
+      poster_path={item.poster_path}
+      original_title={item.original_title}
+      release_date={item.release_date}
+      overview={item.overview}
+    />
+  );
   return loading ? (
     <Loader>
       <ActivityIndicator />
@@ -80,7 +102,7 @@ const Movies = ({navigation: {navigate}}) => {
       refreshing={refreshing}
       nestedScrollEnabled={true}
       data={upcoming}
-      keyExtractor={item => item.id.toString()}
+      keyExtractor={movieKeyExtractor}
       ListHeaderComponent={
         <>
           <Swiper
@@ -91,7 +113,6 @@ const Movies = ({navigation: {navigate}}) => {
             showsButtons={false}
             showsPagination={false}
             containerStyle={{
-              marginBottom: 25,
               width: '100%',
               height: SCREEN_HEIGHT / 4,
             }}>
@@ -107,18 +128,21 @@ const Movies = ({navigation: {navigate}}) => {
             ))}
           </Swiper>
           <ListTitle>🔥 Trending Movies</ListTitle>
-          <HMedia movies={trending} />
+          <TrendingScroll
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{paddingHorizontal: 30}}
+            ItemSeparatorComponent={HSeparator}
+            nestedScrollEnabled={true}
+            data={trending}
+            keyExtractor={movieKeyExtractor}
+            renderItem={renderHMedia}
+          />
           <ListTitle>📅 Upcoming Movies</ListTitle>
         </>
       }
-      renderItem={({item}) => (
-        <VMedia
-          poster_path={item.poster_path}
-          original_title={item.original_title}
-          release_date={item.release_date}
-          overview={item.overview}
-        />
-      )}
+      ItemSeparatorComponent={VSeparator}
+      renderItem={renderVMedia}
     />
   );
 };
