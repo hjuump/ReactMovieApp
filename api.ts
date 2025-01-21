@@ -51,7 +51,7 @@ export const tvAPI = {
       res.json(),
     ),
   topRated: () =>
-    fetch(`${BASE_URL}/tv/airing_today?api_key=${API_KEY}`).then(res =>
+    fetch(`${BASE_URL}/tv/top_rated?api_key=${API_KEY}`).then(res =>
       res.json(),
     ),
 };

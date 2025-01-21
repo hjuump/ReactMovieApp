@@ -13,12 +13,13 @@ const Title = styled.Text`
   color: ${props => props.theme.textColor};
 `;
 const HMedia = ({id, poster_path, original_title, vote_average}) => {
+  const title = original_title || 'No Title';
   return (
     <Movie key={id}>
       <Poster path={poster_path} />
       <Title>
-        {original_title.slice(0, 11)}
-        {original_title.length > 11 ? '...' : null}
+        {title.slice(0, 11)}
+        {title.length > 11 ? '...' : null}
       </Title>
       <Votes vote_average={vote_average} />
     </Movie>
