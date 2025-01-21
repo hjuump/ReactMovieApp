@@ -1,13 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import styled from 'styled-components/native';
-import {ActivityIndicator, Dimensions, View} from 'react-native';
+import {Dimensions} from 'react-native';
 import Swiper from 'react-native-swiper';
 import Slides from '../components/Slides';
 import HMedia from '../components/HMedia';
 import VMedia from '../components/VMedia';
-import {QueryClient, useQuery, useQueryClient} from 'react-query';
+import {useQuery, useQueryClient} from 'react-query';
 import {moviesAPI} from '../api';
 import Loader from '../components/Loader';
+import HList from '../components/HList';
 
 const TrendingScroll = styled.FlatList`
   background-color: ${props => props.theme.mainBgColor};
@@ -106,17 +107,7 @@ const Movies = ({navigation: {navigate}}) => {
               />
             ))}
           </Swiper>
-          <ListTitle>🔥 Trending Movies</ListTitle>
-          <TrendingScroll
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{paddingHorizontal: 30}}
-            ItemSeparatorComponent={HSeparator}
-            nestedScrollEnabled={true}
-            data={trendingData.results}
-            keyExtractor={movieKeyExtractor}
-            renderItem={renderHMedia}
-          />
+          <HList title="🔥 Trending Movies" data={trendingData.results} />
           <ListTitle>📅 Upcoming Movies</ListTitle>
         </>
       }
