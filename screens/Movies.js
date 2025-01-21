@@ -7,14 +7,9 @@ import HMedia from '../components/HMedia';
 import VMedia from '../components/VMedia';
 import {QueryClient, useQuery, useQueryClient} from 'react-query';
 import {moviesAPI} from '../api';
+import Loader from '../components/Loader';
 
 const TrendingScroll = styled.FlatList`
-  background-color: ${props => props.theme.mainBgColor};
-`;
-const Loader = styled.View`
-  flex: 1;
-  align-items: center;
-  justify-content: center;
   background-color: ${props => props.theme.mainBgColor};
 `;
 const ListTitle = styled.Text`
@@ -79,9 +74,7 @@ const Movies = ({navigation: {navigate}}) => {
     />
   );
   return loading ? (
-    <Loader>
-      <ActivityIndicator />
-    </Loader>
+    <Loader />
   ) : (
     <TrendingScroll
       onRefresh={onRefresh}
