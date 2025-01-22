@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import Poster from './Poster';
-const ListContainer = styled.View``;
+import {useNavigation} from '@react-navigation/native';
+import {TouchableOpacity} from 'react-native';
+
 const Title = styled.Text`
   font-size: 14px;
   font-weight: 700;
@@ -28,8 +30,12 @@ const Release = styled.Text`
   opacity: 0.8;
 `;
 const VMedia = ({poster_path, original_title, release_date, overview}) => {
+  const navigation = useNavigation();
+  const goToDetail = () => {
+    navigation.navigate('Stack', {screen: 'Detail'});
+  };
   return (
-    <ListContainer>
+    <TouchableOpacity onPress={goToDetail} activeOpacity={0.8}>
       <HMovie>
         <Poster path={poster_path} />
         <HColumn>
@@ -52,7 +58,7 @@ const VMedia = ({poster_path, original_title, release_date, overview}) => {
           </Overview>
         </HColumn>
       </HMovie>
-    </ListContainer>
+    </TouchableOpacity>
   );
 };
 export default VMedia;
