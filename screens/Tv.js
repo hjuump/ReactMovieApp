@@ -1,7 +1,7 @@
 import React from 'react';
 import {RefreshControl, ScrollView} from 'react-native';
 import {useQuery, useQueryClient} from 'react-query';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import {tvAPI} from '../api';
 import Loader from '../components/Loader';
 import HList from '../components/HList';
@@ -31,7 +31,7 @@ const Tv = () => {
   };
   const loading = topLoading || todayLoading || trendingLoading;
   const refreshing = todayRefetching || topRefetching || trendingRefetching;
-  console.log(refreshing);
+
   return loading ? (
     <Loader />
   ) : (

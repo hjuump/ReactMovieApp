@@ -10,8 +10,10 @@ const Wrapper = styled.View`
 `;
 
 const Loader = () => {
-  <Wrapper>
-    <ActivityIndicator />
-  </Wrapper>;
+  return (
+    <Wrapper>
+      <ActivityIndicator />
+    </Wrapper>
+  );
 };
 export default Loader;

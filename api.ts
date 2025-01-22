@@ -1,4 +1,5 @@
 import {API_KEY} from '@env';
+import {QueryFunctionContext} from 'react-query';
 const BASE_URL = 'https://api.themoviedb.org/3';
 
 export interface Movie {
@@ -39,6 +40,12 @@ export const moviesAPI = {
     fetch(
       `${BASE_URL}/movie/now_playing?api_key=${API_KEY}&language=en-US&page=1&region=KR`,
     ).then(res => res.json()),
+  search: ({queryKey}: QueryFunctionContext<[string, string]>) => {
+    const [_, query] = queryKey;
+    return fetch(
+      `${BASE_URL}/search/movie?api_key=${API_KEY}&language=en-US&page=1&query=${query}`,
+    ).then(res => res.json());
+  },
 };
 
 export const tvAPI = {
@@ -54,4 +61,10 @@ export const tvAPI = {
     fetch(`${BASE_URL}/tv/top_rated?api_key=${API_KEY}`).then(res =>
       res.json(),
     ),
+  search: ({queryKey}: QueryFunctionContext<[string, string]>) => {
+    const [_, query] = queryKey;
+    return fetch(
+      `${BASE_URL}/search/tv?api_key=${API_KEY}&language=en-US&page=1&query=${query}`,
+    ).then(res => res.json());
+  },
 };
