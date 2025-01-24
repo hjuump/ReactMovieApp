@@ -49,11 +49,12 @@ const Slides = ({
   original_title,
   vote_average,
   overview,
+  fullData,
 }) => {
   const isDark = useColorScheme() === 'dark';
   const navigation = useNavigation();
   const goToDetail = () => {
-    navigation.navigate('Stack', {screen: 'Detail', params: {original_title}});
+    navigation.navigate('Stack', {screen: 'Detail', params: {...fullData}});
   };
   return (
     <TouchableWithoutFeedback onPress={goToDetail}>

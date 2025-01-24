@@ -64,6 +64,7 @@ const Movies = ({navigation: {navigate}}) => {
       poster_path={item.poster_path}
       original_title={item.original_title}
       vote_average={item.vote_average}
+      fullData={item}
     />
   );
   const renderVMedia = ({item}) => (
@@ -72,6 +73,7 @@ const Movies = ({navigation: {navigate}}) => {
       original_title={item.original_title}
       release_date={item.release_date}
       overview={item.overview}
+      fullData={item}
     />
   );
   return loading ? (
@@ -104,6 +106,7 @@ const Movies = ({navigation: {navigate}}) => {
                 original_title={movie.original_title}
                 vote_average={movie.vote_average}
                 overview={movie.overview}
+                fullData={movie}
               />
             ))}
           </Swiper>

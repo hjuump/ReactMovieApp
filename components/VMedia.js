@@ -29,10 +29,16 @@ const Release = styled.Text`
   font-weight: 500;
   opacity: 0.8;
 `;
-const VMedia = ({poster_path, original_title, release_date, overview}) => {
+const VMedia = ({
+  poster_path,
+  original_title,
+  release_date,
+  overview,
+  fullData,
+}) => {
   const navigation = useNavigation();
   const goToDetail = () => {
-    navigation.navigate('Stack', {screen: 'Detail', params: {original_title}});
+    navigation.navigate('Stack', {screen: 'Detail', params: {...fullData}});
   };
   return (
     <TouchableOpacity onPress={goToDetail} activeOpacity={0.8}>

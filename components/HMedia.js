@@ -15,13 +15,13 @@ const Title = styled.Text`
   margin-bottom: 5px;
   color: ${props => props.theme.textColor};
 `;
-const HMedia = ({id, poster_path, original_title, vote_average}) => {
+const HMedia = ({id, poster_path, original_title, vote_average, fullData}) => {
   const title = original_title || 'No Title';
   const navigation = useNavigation();
   const goToDetail = () => {
     navigation.navigate('Stack', {
       screen: 'Detail',
-      params: {original_title},
+      params: {...fullData},
     });
   };
   return (
