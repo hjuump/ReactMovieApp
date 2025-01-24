@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import HMedia from './HMedia';
-import {TouchableOpacity} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
 
 const ListContainer = styled.View`
   margin-bottom: 15px;
@@ -22,10 +20,6 @@ export const HListSeparator = styled.View`
 `;
 
 const HList = ({title, data}) => {
-  const navigation = useNavigation();
-  const goToDetail = () => {
-    navigation.navigate('Stack', {screen: 'Detail'});
-  };
   return (
     <ListContainer>
       <ListTitle>{title}</ListTitle>
@@ -37,14 +31,12 @@ const HList = ({title, data}) => {
         keyExtractor={movieKeyExtractor}
         data={data}
         renderItem={({item}) => (
-          <TouchableOpacity onPress={goToDetail} activeOpacity={0.8}>
-            <HMedia
-              id={item.id}
-              poster_path={item.poster_path}
-              original_title={item.original_title ?? item.original_name}
-              vote_average={item.vote_average}
-            />
-          </TouchableOpacity>
+          <HMedia
+            id={item.id}
+            poster_path={item.poster_path}
+            original_title={item.original_title ?? item.original_name}
+            vote_average={item.vote_average}
+          />
         )}
       />
     </ListContainer>

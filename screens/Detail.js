@@ -1,15 +1,25 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Text, View} from 'react-native';
 import styled from 'styled-components/native';
 
-const Container = styled.View`
+const Container = styled.ScrollView`
   flex: 1;
   background-color: ${props => props.theme.mainBgColor};
 `;
-const Detail = () => {
+const Detail = ({
+  navigation: {setOptions},
+  route: {
+    params: {original_title},
+  },
+}) => {
+  useEffect(() => {
+    setOptions({
+      title: original_title,
+    });
+  }, []);
   return (
     <Container>
-      <Text></Text>
+      <Text>{original_title}</Text>
     </Container>
   );
 };

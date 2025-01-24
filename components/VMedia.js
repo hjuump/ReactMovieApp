@@ -32,7 +32,7 @@ const Release = styled.Text`
 const VMedia = ({poster_path, original_title, release_date, overview}) => {
   const navigation = useNavigation();
   const goToDetail = () => {
-    navigation.navigate('Stack', {screen: 'Detail'});
+    navigation.navigate('Stack', {screen: 'Detail', params: {original_title}});
   };
   return (
     <TouchableOpacity onPress={goToDetail} activeOpacity={0.8}>
